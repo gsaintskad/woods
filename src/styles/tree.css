@@ -1,0 +1,19 @@
+.treeHolder{
+    background-color: rgba(231, 100, 100, 0.29);
+    width:100%;
+    height: 500px;
+
+}
+
+.mainDiv{
+    background-color: rgba(3, 255, 33, 0.29);
+    border-radius: 100%;
+    height:2em;
+    width:2em;
+    text-align: center;
+}
+
+.valueHolder{
+
+}
+
