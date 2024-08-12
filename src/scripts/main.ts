@@ -14,10 +14,8 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 `
 let tNode:treeNode=new treeNode(5);
 
-let treeHolder:HTMLDivElement=document.createElement("div");
-treeHolder.classList.add("treeHolder");
 
-treeHolder.appendChild(tNode.getShadow);
-document.querySelector<HTMLDivElement>('#app')!.appendChild(treeHolder);
-tNode.value=10;
+
+document.querySelector<HTMLDivElement>('#app')!.appendChild(tNode);
+
 
