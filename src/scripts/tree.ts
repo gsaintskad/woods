@@ -20,6 +20,7 @@ export class Tree{
     }
     public render():void {
         this.calculateNodesCoordinates(this._root,null,null);
+        this.edgeElements.forEach((value:Edge)=>value.updateState());
         this.drawEdges();
     }
 
