@@ -4,7 +4,7 @@ export class HTMLNodeElement extends HTMLElement {
     private mainDiv: HTMLDivElement=document.createElement("div");
     public valueHolder:HTMLParagraphElement=document.createElement("p");
     public nodeLevel:number = 0;
-    public static nodeRadius  =1;
+    public static nodeRadius  =30;
     public coordinates:[number,number]
     constructor(node:treeNode) {
         super();
@@ -15,12 +15,13 @@ export class HTMLNodeElement extends HTMLElement {
             :host {
                 display: block;
                 position: absolute; /* Ensure positioning is possible */
-                width: 2em; /* Match mainDiv dimensions */
-                height: 2em; /* Match mainDiv dimensions */
-                background-color: rgba(0, 147, 20, 0.8);
+                width: ${2*HTMLNodeElement.nodeRadius}px; /* Match mainDiv dimensions */
+                height: ${2*HTMLNodeElement.nodeRadius}px; /* Match mainDiv dimensions */
+                background-color: green;
                 border-radius: 100%;
                 text-align: center;
                 margin: 0;
+                padding: 0;
             }
             .mainDiv {
                 height: 100%;
@@ -28,9 +29,11 @@ export class HTMLNodeElement extends HTMLElement {
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                margin: 0;
+                padding: 0;
             }
             .valueHolder {
-                font-size: 1em;
+                font-size: ${HTMLNodeElement.nodeRadius}px;
                 padding: 0;
                 margin: 0;
             }
