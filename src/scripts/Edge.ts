@@ -1,14 +1,14 @@
 import { treeNode } from "./treeNode.ts";
 import {HTMLNodeElement} from "./HTMLNodeElement.ts";
 
-export class Edge extends HTMLElement {
+export class Edge<T> extends HTMLElement {
   private shadow: ShadowRoot;
   private edge: HTMLDivElement;
 
-  private nodeA:treeNode;
-  private nodeB:treeNode;
+  private nodeA:treeNode<T>;
+  private nodeB:treeNode<T>;
 
-  constructor(nodeA: treeNode, nodeB: treeNode) {
+  constructor(nodeA: treeNode<T>, nodeB: treeNode<T>) {
     super();
     this.shadow = this.attachShadow({ mode: 'open' });
     this.edge = document.createElement("div");
