@@ -118,6 +118,7 @@ export class Tree<T>{
      //   console.log(`is currNode root?${currNode===this._root}`);
 
         if (this._root === null) {
+
             this._root = new treeNode<T>(newNodeVal);
             this.processNode(this._root);
             return this._root;
@@ -139,7 +140,7 @@ export class Tree<T>{
 
 
         }
-        else if(this.compare(currNode.value,newNodeVal)===1 || this.compare(currNode.value,newNodeVal)===0){
+        else if(this.compare(currNode.value,newNodeVal)>=0){
             currNode.right= this.appendTreeNode(newNodeVal,currNode.right,++currLevel);
         }
         else if(this.compare(currNode.value,newNodeVal)===-1){

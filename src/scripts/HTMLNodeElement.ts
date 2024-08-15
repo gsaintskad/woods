@@ -3,6 +3,7 @@ export class HTMLNodeElement<T> extends HTMLElement {
     private shadow: ShadowRoot=this.attachShadow({mode: 'open'});
     private mainDiv: HTMLDivElement=document.createElement("div");
     public valueHolder:HTMLParagraphElement=document.createElement("p");
+
     public nodeLevel:number = 0;
     public static nodeRadius  =30;
     public coordinates:[number,number];
@@ -44,7 +45,7 @@ export class HTMLNodeElement<T> extends HTMLElement {
 
         this.mainDiv.classList.add('mainDiv');
         this.valueHolder.classList.add('valueHolder');
-        this.valueHolder.innerHTML=`${this.tNode!.displayValue}`;
+        this.valueHolder.innerHTML=`${this.tNode!.getDisplayValue()}`;
         this.initEventHandlers();
         this.mainDiv.appendChild(this.valueHolder);
 
@@ -54,9 +55,9 @@ export class HTMLNodeElement<T> extends HTMLElement {
 
     }
     private initEventHandlers(){
-        this.mainDiv.addEventListener("pointerover", (evt:Event) => {
-            console.log(`pointer over ${this.tNode!.displayValue}`,evt)
-        })
+        // this.mainDiv.addEventListener("pointerover", (evt:Event) => {
+        //     console.log(`pointer over ${this.tNode!.value}`,evt)
+        // })
     }
 
 
