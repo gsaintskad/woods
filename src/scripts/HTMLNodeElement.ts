@@ -58,4 +58,7 @@ export class HTMLNodeElement<T> extends HTMLElement {
             console.log(`pointer over ${this.tNode!.displayValue}`,evt)
         })
     }
+
+
+
 }
