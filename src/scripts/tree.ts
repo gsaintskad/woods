@@ -1,11 +1,12 @@
 import {treeNode} from "./treeNode.ts";
 import {HTMLNodeElement} from "./HTMLNodeElement.ts";
 import {Edge} from "./Edge.ts";
+
 export class Tree<T>{
     private container: HTMLElement;
     private H:number=0;
 
-    public compare:(valA:T,valB:T)=>number;
+    public compare:(valA:treeNode<T>,valB:treeNode<T>)=>number;
     private d=1;
     private maxWidth=0;
     public nodeElements = new Map<treeNode<T>, HTMLElement>();
@@ -16,11 +17,21 @@ export class Tree<T>{
         if (!this.container) {
             throw new Error('Container element not found');
         }
-        this.compare=<T>(valA:T,valB:T)=>{
-            throw new Error(`u have not implement the compare function. Comparing is impossible.
-            inputted values valA:${valA}, valB${valB}`);
+        this.compare=<T>(a:T,b:T):number=>{
 
-        }
+            if(a >b){
+                return 1;
+            }
+            else  if(a <b){
+                return -1;
+            }
+            else return 0;
+        };
+        //   <T>(valA:T,valB:T)=>{
+        //     throw new Error(`u have not implement the compare function. Comparing is impossible.
+        //     inputted values valA:${valA}, valB${valB}`);
+        //
+        // }
       // window.addEventListener('resize',this.drawTree.bind(this));
     }
     public render():void {
@@ -49,6 +60,7 @@ export class Tree<T>{
         this.nodeElements.set(node,HTMLNode );
     }
     public deleteTree(){
+
         this._root=null;
         this.H=0;
         this.edgeElements.clear();
@@ -113,13 +125,13 @@ export class Tree<T>{
         this.drawEdges(currNode.left);
         this.drawEdges(currNode.right);
     }
-    public appendTreeNode(newNodeVal:T,currNode:treeNode<T>|null=this._root,currLevel:number=0):treeNode<T>{
+    public appendTreeNode(node:treeNode<T>,currNode:treeNode<T>|null=this._root,currLevel:number=0):treeNode<T>{
         // console.log(`iteration #${this.i++},newNode:${node?node.value:"null"}, currNode: ${currNode?currNode.value:"null"},root:${this._root?this._root.value:"null"}`);
      //   console.log(`is currNode root?${currNode===this._root}`);
 
         if (this._root === null) {
 
-            this._root = new treeNode<T>(newNodeVal);
+            this._root = node;
             this.processNode(this._root);
             return this._root;
         }
@@ -134,17 +146,16 @@ export class Tree<T>{
                     //  this.calculateRootCoordinates();
                     // this.editContainer();
                 }
-                const node=new treeNode<T>(newNodeVal);
                 this.processNode(node, currLevel);
                 return node;
 
 
         }
-        else if(this.compare(currNode.value,newNodeVal)>=0){
-            currNode.right= this.appendTreeNode(newNodeVal,currNode.right,++currLevel);
+        else if(this.compare(currNode,node)>=0){
+            currNode.right= this.appendTreeNode(node,currNode.right,++currLevel);
         }
-        else if(this.compare(currNode.value,newNodeVal)===-1){
-            currNode.left=this.appendTreeNode(newNodeVal,currNode.left,++currLevel);
+        else if(this.compare(currNode,node)===-1){
+            currNode.left=this.appendTreeNode(node,currNode.left,++currLevel);
         }
         else throw new Error("Comparing issue, while appending new treeNode into the tree");
         return currNode;

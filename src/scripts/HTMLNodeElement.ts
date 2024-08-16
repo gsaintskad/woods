@@ -45,7 +45,7 @@ export class HTMLNodeElement<T> extends HTMLElement {
 
         this.mainDiv.classList.add('mainDiv');
         this.valueHolder.classList.add('valueHolder');
-        this.valueHolder.innerHTML=`${this.tNode!.getDisplayValue()}`;
+        this.valueHolder.innerHTML=`${this.tNode!.displayValue}`;
         this.initEventHandlers();
         this.mainDiv.appendChild(this.valueHolder);
 
