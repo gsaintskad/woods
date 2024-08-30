@@ -74,10 +74,10 @@ h1 {
   filter: drop-shadow(0 0 2em #3178c6aa);
 }
 .interfaceButton{
-  height: 100%;
+
   border-radius: 5%;
   border: none;
-  font-size: 3em;
+  font-size: 1.75em;
   text-align: center;
   padding-inline: 1em;
   margin-inline: 0.25em;

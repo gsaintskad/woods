@@ -20,18 +20,20 @@ app.innerHTML = `
         
   
       <input id="insertInput" placeholder="number"/>
-      <div id="insertBtn" class="interfaceButton" role="button">insert</div>
-      <div id="clearBtn" class="interfaceButton" role="button">clear</div>
-      <div id="saveBtn" class="interfaceButton" role="button">save</div>
-      <div id="deleteBtn" class="interfaceButton" role="button">delete</div>
-  
+     <div id="numberBtn" class="interfaceButton" role="button">Create a number tree</div>
+     <div id="stringBtn" class="interfaceButton" role="button">Create a string tree</div>
+      <div id="jsonBtn" class="interfaceButton" role="button">Create a json tree</div>
     
 </div>
 <div id="treeContainer"></div>
 <div id="appFooter">
-     <div id="jsonBtn" class="footerButton" role="button">Create a json tree</div>
-     <div id="numberBtn" class="footerButton" role="button">Create a number tree</div>
-     <div id="stringBtn" class="footerButton" role="button">Create a string tree</div>
+
+        <div id="insertBtn" class="footerButton" role="button">insert</div>
+      <div id="clearBtn" class="footerButton" role="button">clear</div>
+      <div id="saveBtn" class="footerButton" role="button">save</div>
+      <div id="deleteBtn" class="footerButton" role="button">delete</div>
+  
+     
 </div>
 `
 let tree:Tree<any>|null=null;
@@ -72,6 +74,11 @@ const createTree = <T>(insertCallback: () => void) => {
   if (tree !== null) {
     // Clear the existing tree
     tree.deleteTree();
+    tree.compare=(a:treeNode<T>,b:treeNode<T>)=> {
+      a;
+      b;
+      return 500;
+    }
   }
 
   // Create a new tree instance
@@ -124,21 +131,23 @@ const numberInsertCallback = () => {
     // Prevent insertion if input is empty
     throw new Error("Input cannot be empty!");
 
+  }else{
+
+    let numberValue = Number(enteredValue);
+
+    if (isNaN(numberValue)) {
+      // Handle invalid number
+      throw new Error(`Your input: "${input.value}" is invalid.`);
+
+    }
+
+    // Now you have a valid number
+    tree.appendTreeNode(new treeNode<number>(numberValue));
+
+    input.value = ""; // Clear input after successful insertion
+    tree.render();
   }
 
-  let numberValue = Number(enteredValue);
-
-  if (isNaN(numberValue)) {
-    // Handle invalid number
-    throw new Error(`Your input: "${input.value}" is invalid.`);
-
-  }
-
-  // Now you have a valid number
-  tree.appendTreeNode(new treeNode<number>(numberValue));
-
-  input.value = ""; // Clear input after successful insertion
-  tree.render();
 };
 const jsonInsertCallback=()=>{
   const enteredValue = input.value.split("|").map((el)=>el.trim());
@@ -155,11 +164,21 @@ const jsonInsertCallback=()=>{
 
 numberBtn.addEventListener("click", ()=>{
   createTree<number>(numberInsertCallback);
+  tree.compare=(a:treeNode<number>,b:treeNode<number>)=>{
+    if (a.compareValue>b.compareValue)return -1;
+    else if(a.compareValue<b.compareValue)return 1;
+    else return 0;
 
+  }
 });
 stringBtn.addEventListener("click", ()=>{
   createTree<string>(stringInsertCallback);
+  tree.compare=(a:treeNode<string>,b:treeNode<string>)=>{
+    if (a.compareValue>b.compareValue)return 1;
+    else if(a.compareValue<b.compareValue)return -1;
+    else return 0;
 
+  }
 });
 jsonBtn.addEventListener("click",()=>{
   createTree<DisplayableJSON>(jsonInsertCallback);

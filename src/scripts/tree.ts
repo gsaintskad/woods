@@ -140,6 +140,7 @@ export class Tree<T>{
 
                 if(currLevel > 4){
                     throw new Error("Invalid node level. Maximum that is possible is 4");
+
                 }
                 if (this.H < currLevel) {
                     this.H = currLevel;
